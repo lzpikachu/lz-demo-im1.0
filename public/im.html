@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>post</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="style/im.css"/><!--自定义css-->
+		<link rel="stylesheet" type="text/css" href="style/mui.css"/><!--mui框架-->
+		<script src="js/mui.min.js"></script><!--mui框架-->
+		<script src="node_modules/leancloud-storage/dist/av.js"></script>
+        <script src="node_modules/leancloud-realtime/dist/realtime.browser.js"></script>
+        <script src="node_modules/leancloud-realtime-plugin-typed-messages/dist/typed-messages.js"></script>
+        <script src="js/jquery.min.js"></script>
+	</head>
+	<body style="background-image: url(imges/bg.jpg);">
+        <div class="mui-content main-contaoner" style="background-image: url(imges/bg.jpg);">
+            <div class="mui-row">
+            	<div class="mui-col-sm-3"></div>
+                <div class="mui-col-sm-2 left-chat-div">
+                	<input type="hidden" id="user_id" name="">
+                	<input type="hidden" id="user_name" name="">
+                	<div><div class="nav-head mui-icon mui-icon-contact navlefttxt" style="color: #fff;display:block;line-height:50px;text-align:center;">Contacts</div></div>
+                	<ul class="mui-table-view">
+						<p class="mui-progressbar mui-progressbar-infinite" style="background:#fff; height: 3px;"></p>               		
+                    </ul> 
+                </div>
+                <div class="mui-col-sm-4" style="margin-left: 5px; min-width: 402px;">
+                	<div class="nav-head"><span class="mui-icon mui-icon-contact sender" style="color: #fff;display:block;line-height:50px;text-align:center;"></span></div>
+                    <ul class="right-chat-div">	
+                    	<p class="mui-progressbar mui-progressbar-infinite" style="background:#fff; height: 3px;"></p>   
+                    	<div style="padding: 10px;"><div class="chat-toptip">已达顶部</div></div>
+                    	<!--<li class="right-send-time"><span>send</span></li>
+                    	<li class="right-send-chat"><span class="send-txt">send</span></li>-->
+                    </ul>
+                    <div class="input-chat">
+					    <textarea id="textarea" rows="3" placeholder="请输入文字" value="test" style="width:80%;border:none;"></textarea>
+					    <button type="button" class="mui-btn mui-btn-primary mui-icon mui-icon-paperplane" id="send-btn" disabled="true" style="width:18%;border-radius:25px;">发送</button>
+				    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+	<script src="im.js"></script>
+</html>
