@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="style/im.css"/><!--自定义css-->
 		<link rel="stylesheet" type="text/css" href="style/mui.css"/><!--mui框架-->
+		<link rel="stylesheet" type="text/css" href="style/icons-extra.css" />
 		<script src="js/mui.min.js"></script><!--mui框架-->
 		<script src="node_modules/leancloud-storage/dist/av.js"></script>
         <script src="node_modules/leancloud-realtime/dist/realtime.browser.js"></script>
@@ -15,16 +16,18 @@
 	<body style="background-image: url(imges/bg.jpg);">
         <div class="mui-content main-contaoner" style="background-image: url(imges/bg.jpg);">
             <div class="mui-row">
-            	<div class="mui-col-sm-3"></div>
-                <div class="mui-col-sm-2 left-chat-div">
-                	<input type="hidden" id="user_id" name="">
-                	<input type="hidden" id="user_name" name="">
-                	<div><div class="nav-head mui-icon mui-icon-contact navlefttxt" style="color: #fff;display:block;line-height:50px;text-align:center;">Contacts</div></div>
-                	<ul class="mui-table-view">
-						<p class="mui-progressbar mui-progressbar-infinite" style="background:#fff; height: 3px;"></p>               		
-                    </ul> 
-                </div>
-                <div class="mui-col-sm-4" style="margin-left: 5px; min-width: 402px;">
+            	<div class="mui-col-sm-3 mui-col-xs-1"></div>
+            	<div class="mui-col-sm-2 mui-col-xs-4 left-width">
+            		<div><div class="nav-head mui-icon-extra mui-icon-extra-custom navlefttxt" style="color: #fff;display:block;line-height:50px;text-align:center;">User</div></div>
+            		<div class="left-chat-div">
+                	    <input type="hidden" id="user_id" name="">
+                	    <input type="hidden" id="user_name" name="">
+                	    <ul class="mui-table-view">
+						    <p class="mui-progressbar mui-progressbar-infinite" style="background:#fff; height: 3px;"></p>               		
+                        </ul> 
+                    </div>
+            	</div>            	
+                <div class="mui-col-sm-4 mui-col-xs-6" style="margin-left: 5px; min-width: 402px;">
                 	<div class="nav-head"><span class="mui-icon mui-icon-contact sender" style="color: #fff;display:block;line-height:50px;text-align:center;"></span></div>
                     <ul class="right-chat-div">	
                     	<p class="mui-progressbar mui-progressbar-infinite" style="background:#fff; height: 3px;"></p>   

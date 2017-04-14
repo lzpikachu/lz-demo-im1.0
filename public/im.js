@@ -1,8 +1,14 @@
 var Realtime = AV.Realtime;
 var TextMessage = AV.TextMessage;
+var appid = 'gp9NTUgupgFI4MR2Ha6Y93Qd-gzGzoHsz';
+var appkey = '1DpyxUsDN5YHkRTS6VkEk83F';
+AV.init({
+	  appId: appid,
+	  appKey: appkey,
+	  region: 'cn'});
 var realtime = new Realtime({
-appId: 'ymfg02o4PikTPeVdFJnTIyrn-gzGzoHsz',
-region: 'cn', //美国节点为 "us"
+appId: appid,
+region: 'us', //美国节点为 "us"
 // pushOfflineMessages: true,
 });
 
@@ -23,10 +29,10 @@ $(function(){
 //	var inputdivheight = winheight*1.3/10;
 //	var inputheight = winheight*0.8/10;
 	var test= document.getElementById("textarea");  
-	$('.left-chat-div').css("height","765px");
-	$('.right-chat-div').css("height","576px");
-	$('.input-chat').css("height","120px");
-	$('#textarea').css("height","65px");
+//	$('.left-chat-div').css("height","715px");
+//	$('.right-chat-div').css("height","576px");
+//	$('.input-chat').css("height","120px");
+//	$('#textarea').css("height","65px");
     test.onkeydown = function(e){  
         send(e);  
     }
@@ -87,13 +93,19 @@ $('#textarea').bind('input propertychange', function(event) {
 //     console.log(name + '退出登录');
 //   }).catch(console.error.bind(console));
 // })
-var name = getCookie('login_id');
-$(function(){
-	//将用户名放左边头上
-	$('.navlefttxt').text(name);
-});
+//var name = getCookie('login_id');
+//58da1b7144d90400694aa700
+var name = '58e358710ce46300583a3b2c';
+//var name1 = 'test';
+//var query = new AV.Query('_User');
+//      query.get(name).then(function(user) {
+//      	console.log(user);
+//}, function(error) {
+//// error is an instance of AVError.
+//});
 
-realtime.createIMClient(name).then(function(tom) {
+var conn = realtime.createIMClient(name);
+conn.then(function(tom) {
     var query = tom.getQuery();
     return query.limit(10).containsMembers([name]).withLastMessagesRefreshed(true).find();//查询最近10条回话withLastMessagesRefreshed(true)作用返回最后一条消息
 //  return query.withMembers(['Jerry']).find();
@@ -101,44 +113,73 @@ realtime.createIMClient(name).then(function(tom) {
    	// 默认按每个对话的最后更新日期（收到最后一条消息的时间）倒序排列limit(条数)
 }).then(function(conversations) {
     	conversations.map(function(conversation) {
+//	    console.log(conversations);
 // 	    console.log(conversation.lastMessageAt.toString(), conversation.members);//日期和对话
 // 	    console.log(conversation.members);
-        var lastmessage = conversation.lastMessage._lctext;//最后一条消息内容
-        var todate = conversation.lastMessageAt;//最后一条消息时间
-	    var year = todate.getFullYear();//获取年
-	    var month = todate.getMonth()+1;//获取月
-	    var dat = todate.getDate();//获取日
-	    var huors = todate.getHours() < 10 ? "0" + todate.getHours() : todate.getHours();//获取小时数
-	    var minutes = todate.getMinutes() < 10 ? "0" + todate.getMinutes() : todate.getMinutes();//获取分钟数
-	    var seconds = todate.getSeconds() < 10 ? "0" + todate.getSeconds() : todate.getSeconds();//获取秒数
+	    	var lastmessage = conversation.lastMessage._lctext;//最后一条消息内容
+	      var todate = conversation.lastMessageAt;//最后一条消息时间
+		    var year = todate.getFullYear();//获取年
+		    var month = todate.getMonth()+1;//获取月
+		    var dat = todate.getDate();//获取日
+		    var huors = todate.getHours() < 10 ? "0" + todate.getHours() : todate.getHours();//获取小时数
+		    var minutes = todate.getMinutes() < 10 ? "0" + todate.getMinutes() : todate.getMinutes();//获取分钟数
+		    var seconds = todate.getSeconds() < 10 ? "0" + todate.getSeconds() : todate.getSeconds();//获取秒数
         var sendtime = month+"月"+dat+"日"+huors+":"+minutes+":"+seconds;//历史消息时间
    	    var arr = conversation.members;
-	    for (var i=0; i<arr.length; i++){
-         var conver = arr[i];
+	      for (var i=0; i<arr.length; i++){
+	    	conver = arr[i];
+        var query = new AV.Query('_User');
+        query.get(conver).then(function(user) {
+//      	console.log(user.attributes.username);
+//      	console.log(user.id);	
+        	var username = user.attributes.username;
+        	if(user.id == name){
+        		$('.navlefttxt').text(username);
+        	}
+        	else if(user.id != name){
+//          console.log(conver);
+               $(".left-chat-div").append("<div class='mui-table-view-cell' data-name='"+user.id+"' data-txtname='"+username+"' data-id='"+conversation.id+"'>"+"<span class='mui-icon mui-icon-contact'>"+username+"</span>"+"<span class='left-list-time'>"+sendtime+"</span>"+"<div class='last-text'>"+lastmessage+"</div>"+"</div>");
+           }        	
+         },function(error) {}).then(function(zt){
+					        $('.mui-table-view').find('p').remove();//加载完成移除加载小图标
+					        $('.mui-table-view-cell:eq(0)').trigger('click');////左侧加载后，默认点击第一个对话;
+         });
 //          var len = $(".mui-table-view-cell[data-name='"+conver+"']").length;
-         if(conver != name ){
-//          	console.log(arr[i]);
-         $(".left-chat-div").append("<div class='mui-table-view-cell' data-name='"+arr[i]+"' data-id='"+conversation.id+"'>"+"<span class='mui-icon mui-icon-contact'>"+arr[i]+"</span>"+"<span class='left-list-time'>"+sendtime+"</span>"+"<div class='last-text'>"+lastmessage+"</div>"+"</div>");
-         }
-	    }
+        }
      // $(".left-chat-div").append($("<div class='mui-table-view-cell' data-name='"+arr[0]+"' data-id='"+conversation.id+"'>"+"<span class='mui-icon mui-icon-contact'>"+arr[0]+"</span></div>"));
-   	   });
+   	  });
    }).then(function(zt){
-        $('.mui-table-view').find('p').remove();//加载完成移除加载小图标
-        $('.mui-table-view-cell:eq(0)').trigger('click');////左侧加载后，默认点击第一个对话
-    }).catch(console.error.bind(console));
+			  $('.mui-table-view').find('p').remove();//加载完成移除加载小图标
+			  $('.right-chat-div').find('p').css("display","none");//加载完成移除右侧加载小图标
+			  $('.mui-table-view-cell:eq(0)').trigger('click');////左侧加载后，默认点击第一个对话;
+ 	  }).catch(console.error.bind(console));
 
+//$(document).on('click','.hidbtn',function(event){
+//	var len = $(".left-chat-div").children(".mui-table-view-cell").length;
+// 	    console.log(len);
+//	
+//});
 
 $("#send-btn").click(function(){
+ 	var len = $(".left-chat-div").children(".mui-table-view-cell").length;
+	if(len == 0){//判断如果没有没有会话记录
+    $('.right-chat-div').find('p').css("display","none");
+    $('#textarea').attr("disabled", true).css("background","#ccc");
+    $('#send-btn').attr("disabled", true);
+    $('.input-chat').css("background","#ccc");
+    $('.left-chat-div').append("<div class='lefttop-padding'><div class='toptip-waiting'>等待客户询问中...</div></div>");
+    $('.chat-toptip').css("display","none");
+    return;
+	}
 	var posttxt = $("#textarea").val();//获取输入的内容
 	// Tom 用自己的名字作为 clientId，获取 IMClient 对象实例
-    realtime.createIMClient(name).then(function(tom) {
+    conn.then(function(tom) {
         // 创建与Jerry之间的对话
         return tom.createConversation({
         members: [''+$('#user_name').val()+''],//发给谁
 //      name: 'Tom & Jerry',//谁和谁的对话
         transient: false,
-        // pinned: true,//置顶
+        pinned: true,//置顶
         unique: true,//unique - 是否创建唯一对话，当其为 true 时，如果当前已经有相同成员的对话存在则返回该对话，否则会创建新的对话。该值默认为 false。
     });
   }).then(function(conversation) {
@@ -163,10 +204,17 @@ $("#send-btn").click(function(){
   }).catch(console.error);
 });
 
+
 // Tom 用自己的名字作为 clientId，获取 IMClient 对象实例
 // Jerry 登录
-realtime.createIMClient(name).then(function(jerry) {//接受消息
+conn.then(function(jerry) {//接受消息
     jerry.on('message', function(message, conversation) {
+//  	console.log(message.getAttributes().location);
+    	if(conversation){
+    	 $('.toptip-waiting').remove();
+    	 $('.lefttop-padding').remove();
+    	 $('.chat-toptip').css("display","block").text("请选择会话");
+    }
     	var lastmessage = conversation.lastMessage._lctext;//最后一条消息
         var todate = conversation.lastMessageAt;//最后一条消息时间
     	var todate = message.timestamp;
@@ -177,12 +225,15 @@ realtime.createIMClient(name).then(function(jerry) {//接受消息
 	    var minutes = todate.getMinutes() < 10 ? "0" + todate.getMinutes() : todate.getMinutes();//获取分钟数
 	    var seconds = todate.getSeconds() < 10 ? "0" + todate.getSeconds() : todate.getSeconds();//获取秒数
         var sendtime = month+"月"+dat+"日"+huors+":"+minutes+":"+seconds;//历史消息时间
-if (message.cid == $('#user_id').val()) { //////判断如果当前窗口是对应用户，右侧窗口加消息
+        var query = new AV.Query('_User');
+    query.get(message.from).then(function(user) {
+        var username = user.attributes.username; 
+    if (message.cid == $('#user_id').val()) { //////判断如果当前窗口是对应用户，右侧窗口加消息
       $(".right-chat-div").append("<li class='left-get-time'><span>"+sendtime+"<li class='left-get-chat'>"+"<span class='get-txt'>"+message.text+"</span>"+"</li>");//将发送的内容加到视窗中
       $('.right-chat-div').scrollTop( $('.right-chat-div')[0].scrollHeight );//使滚动条始终在最下端，显示最后的消息
       return ;
     }
-    var deo = $(".mui-table-view-cell[data-name='"+message.from+"']");
+    var deo = $(".mui-table-view-cell[data-name='"+user.id+"']");
     if(deo.length > 0){
 
       var i_span = deo.children('.mui-badge').text();
@@ -200,14 +251,25 @@ if (message.cid == $('#user_id').val()) { //////判断如果当前窗口是对�
       }
     }
     else{
-      	$(".left-chat-div").append($("<div class='mui-table-view-cell' data-id='"+message.cid+"' data-name='"+message.from+"'>"+"<span class='mui-icon mui-icon-contact'>"+message.from+"</span>"+"<span class='left-list-time'>"+sendtime+"</span>"+"<div class='last-text'>"+lastmessage+"</div>"+"<span class='mui-badge mui-badge-primary'>1</span></div>"));
-        deo = $(".mui-table-view-cell[data-name='"+message.from+"']");
+    	var query = new AV.Query('_User');
+    	query.get(message.from).then(function(user) {
+        	console.log(user.attributes.username);
+        	console.log(user.id);	
+        	var username = user.attributes.username;
+     	    $(".left-chat-div").append($("<div class='mui-table-view-cell' data-id='"+message.cid+"' data-name='"+user.id+"'>"+"<span class='mui-icon mui-icon-contact'>"+username+"</span>"+"<span class='left-list-time'>"+sendtime+"</span>"+"<div class='last-text'>"+lastmessage+"</div>"+"<span class='mui-badge mui-badge-primary'>1</span></div>"));
+            deo = $(".mui-table-view-cell[data-name='"+username+"']");
+    	 }, function(error) {
+          // error is an instance of AVError.
+          });
     }
     t_up(deo);
-  }).on('unreadmessages', function unreadMessagesEventHandler(payload, conversation) {
+  }, function(error) {
+          // error is an instance of AVError.
+        });
+    }).on('unreadmessages', function unreadMessagesEventHandler(payload, conversation) {
 //      console.log('---------------------------');
 //      console.log(payload);
-        console.log(conversation);
+//      console.log(conversation);
         var deo = $(".mui-table-view-cell[data-id='"+conversation.id+"']");
         var unreadnum = conversation.unreadMessagesCount;
         if(!isNaN(unreadnum)){
@@ -227,9 +289,9 @@ if (message.cid == $('#user_id').val()) { //////判断如果当前窗口是对�
         //   lastMessageId: "UagNXHK0RHqIvM_VB7Injg",
         //   lastMessageTimestamp: [object Date],
         // }
-      })
-    ;
+      });
 }).catch(console.error);
+
 
 
 function t_up(cla){
@@ -237,9 +299,11 @@ function t_up(cla){
   $('.mui-table-view').after(cla);
 }
 
-
 $(document).on('click','.mui-table-view-cell',function(event){
 	//点击获取聊天记录
+	$('.input-chat').css("background","#fff");
+    $('#textarea').attr("disabled", false).css("background","#fff");
+	$('.chat-toptip').text("已达顶部");
 	var creat = realtime.createIMClient(name);
 	var id = $(this).attr('data-id');
   if (id == $('#user_id').val()) {
@@ -248,7 +312,7 @@ $(document).on('click','.mui-table-view-cell',function(event){
   }
   $('#user_id').val(id);
   $('#user_name').val($(this).attr('data-name'));
-	var sender = $(this).attr('data-name');
+	var sender = $(this).attr('data-txtname');
 	$(this).addClass('leftdiv-addclass').siblings().removeClass('leftdiv-addclass');//左侧列表点击背景色
     $(this).children('.mui-badge').remove();//点击相应对话移除角标
 	$(".right-chat-div").find("li").remove();//当点击左侧客户移除聊天窗口内容
@@ -264,6 +328,7 @@ $(document).on('click','.mui-table-view-cell',function(event){
     	creat.then(function(tom) {
     		var CONVERSATION_ID = id;
 	   	    tom.getConversation(CONVERSATION_ID).then(function(conversation) {
+//	   	    	console.log(conversation);
 	   	    	conversation.markAsRead().then(function(conversation) {
                     //点击对话已标记为已读'
                 }).catch(console.error.bind(console));
@@ -303,7 +368,7 @@ $(document).on('click','.mui-table-view-cell',function(event){
 	           }
                // 最新的十条消息，按时间增序排列
             }).then(function(zt){
-            	    $('.right-chat-div').find('p').remove();
+            	$('.right-chat-div').find('p').css("display","none");
             })
         })
       })

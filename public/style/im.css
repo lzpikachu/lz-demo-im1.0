@@ -1,8 +1,27 @@
+.input-chat{
+	margin-top:19px;
+}
+.toptip-waiting{
+	margin-top:10px;
+	color: #fff;
+	font-size: 25px;
+	width: 250px;
+	padding: 15px;
+	margin: auto;
+	text-align:center;
+	border-radius: 10px;
+	background-color:rgba(0,0,0,.2);
+}
+.lefttop-padding{
+	padding:10px;
+}
 .left-chat-div{
 	margin-top: 0px;
 	background-color: #fff;
 	overflow-y: auto;
-	border-radius: 10px;
+	border-radius:0px 0px 10px 10px ;
+}
+.left-width{
 	min-width: 260px;
 }
 .left-chat-div::-webkit-scrollbar
@@ -82,6 +101,9 @@
     overflow: hidden;
 }
 .send-txt{
+	word-break:break-all; /*强制字母换行支持IE，chrome，FF不支持*/
+　　 word-wrap:break-word;/*强制字母换行支持IE，chrome，FF*/
+    margin-left:60px;
 	color:#fff;
 	float: right;
 	display: block;
@@ -91,12 +113,16 @@
 }
 .left-get-chat{
 	margin-right:15px;
-    width: 100%;
+    width: 92%;
     display: block;
     padding:10px;
     overflow: hidden;
 }
 .get-txt{
+    word-break:break-all; /*强制字母换行支持IE，chrome，FF不支持*/
+　　 word-wrap:break-word;/*强制字母换行支持IE，chrome，FF*/
+	margin-left:0px;
+	margin-right:20px;	
 	color:#fff;
 	float: left;
 	display: block;
@@ -106,7 +132,7 @@
 }
 .chat-toptip{
 	color: #fff;
-	font-size: 5px;
+	font-size: 12px;
 	width: 100px;
 	padding: 2px;
 	margin: auto;
@@ -122,7 +148,7 @@
     overflow: hidden;
 }
 .right-send-time span{
-	font-size: 6px;
+	font-size: 12px;
 	color:#fff;
 	float: right;
 	display: block;
@@ -138,7 +164,8 @@
     overflow: hidden;
 }
 .left-get-time span{
-	font-size: 6px;
+	margin-left:0px;
+	font-size: 12px;
 	color:#fff;
 	float: left;
 	display: block;
@@ -147,15 +174,26 @@
 	border-radius: 4px;
 }
 .left-list-time{
-	font-size: 2px;
+	font-size: 12px;
 	float: right;
 }
 .last-text{
-	font-size: 4px;
+	font-size: 12px;
 	margin-left: 26px;
 	width: 100px;
 	height: 25px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+.left-chat-div{height:715px;}
+.right-chat-div{height:576px;}
+.input-chat{height:120px;}
+#textarea{heught:65px;}
+@media only screen and (max-height: 720px) {
+   .left-chat-div{height:570px;}
+   .right-chat-div{height:430px;}
+   .input-chat{height:120px;}
+   #textarea{heught:65px;}
+
 }

@@ -1,12 +1,12 @@
 var Realtime = AV.Realtime;
 var TextMessage = AV.TextMessage;
 var realtime = new Realtime({
-  appId: 'ymfg02o4PikTPeVdFJnTIyrn-gzGzoHsz',
+  appId: 'gp9NTUgupgFI4MR2Ha6Y93Qd-gzGzoHsz',
   region: 'cn', //美国节点为 "us"
 });
 // Tom 用自己的名字作为 clientId，获取 IMClient 对象实例
 // Jerry 登录
-realtime.createIMClient('lol').then(function(jerry) {
+realtime.createIMClient('58e448b0da2f60005fe17989').then(function(jerry) {
   jerry.on('message', function(message, conversation) {
     console.log('Message received: ' + message.text);
     var get = $('.get').val(message.text);
@@ -16,10 +16,10 @@ realtime.createIMClient('lol').then(function(jerry) {
 $(".send-btn").click(function(){
 	var posttxt = $(".post").val();//获取输入的内容
 	// Tom 用自己的名字作为 clientId，获取 IMClient 对象实例
-    realtime.createIMClient('test119').then(function(tom) {
+    realtime.createIMClient('58e748f6ac502e006c2ddd4f').then(function(tom) {
         // 创建与Jerry之间的对话
         return tom.createConversation({
-        members: ['testkefu'],//发给谁
+        members: ['58e358710ce46300583a3b2c'],//发给谁
 //      name: 'Tom & Jerry',//谁和谁的对话
         transient: false,
         pinned: true,//置顶

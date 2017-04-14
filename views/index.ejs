@@ -4,12 +4,75 @@
 		<meta charset="UTF-8">
 		<title>test</title>
 		    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		    <link rel="stylesheet" href="/style/style.css">
-		    <link rel="stylesheet" href="/style/mui.min.css"/>
-		    <link rel="stylesheet" href="/js/base.css"/>
-		    <script src="/js/jquery-3.1.0.js"></script>
-</head>
+		    <link rel="stylesheet" href="/style/icons-extra.css"/>
+		    <link rel="stylesheet" href="/style/mui.css"/>
+		    <link rel="stylesheet" href="/style/im.css"/>
+		    <script src="/js/mui.min.js"></script>
+		    <script src="/js/jquery.min.js"></script>
+		    <script src="/node_modules/leancloud-storage/dist/av.js"></script>
+        <script src="/node_modules/leancloud-realtime/dist/realtime.browser.js"></script>
+        <script src="/node_modules/leancloud-realtime-plugin-typed-messages/dist/typed-messages.js"></script>
+		    <style type="text/css">
+		    	#login-form{
+		    		width: 94%;
+		    		margin: auto;
+		    	}
+		    	.mui-backdrop {
+				    position: fixed;
+				    top: 0;
+				    right: 0;
+				    bottom: 0;
+				    left: 0;
+				    z-index: 998;
+				    background-color: rgba(0,0,0,.3);
+					}
+		    </style>
+  </head>
   <body>
-  	<a href="../im.html"><button type="button" id="getinto-btn" class="mui-btn mui-btn-primary mui-btn-outlined">进入聊天室</button></a>
+  	<div class=".mui-backdrop"></div>
+  	<div class="mui-content" style="margin-top: 300px;">
+    	<div class="mui-row">
+	  		<div class="mui-col-sm-4 mui-col-xs-12"></div>
+	        <div class="mui-col-sm-4 mui-col-xs-12">
+						<div class="mui-content registe-con" style="display: block;">
+							<form id='login-form' class="mui-input-group">
+								<div class="mui-input-row loginput">
+									<label>账号</label>
+									<input id='registe-name' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+								</div>
+								<div class="mui-input-row">
+									<label>密码</label>
+									<input id='registe-pswd' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+								</div>
+							</form>
+							<div class="mui-content-padded">
+								<button id='registe-btn' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+<!--								<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>-->
+								</div>
+							</div>
+							
+							<div class="mui-content login-con" style="display: none;">
+							<form id='login-form' class="mui-input-group">
+								<div class="mui-input-row loginput">
+									<label>昵称</label>
+									<input id='log-name' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+								</div>
+								<div class="mui-input-row">
+									<label>密码</label>
+									<input id='log-pswd' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+								</div>
+							</form>
+							<div class="mui-content-padded">
+								<button id='log-btn' class="mui-btn mui-btn-block mui-btn-primary">登陆</button>
+<!--								<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>-->
+								</div>
+							</div>
+						</div>
+						</div>
+	    	</div>
+        <div class="mui-col-sm-4 mui-col-xs-12"></div>
+      </div>
+		</div>
   </body>
+  <script src="/js/index.js"></script>
 </html>
